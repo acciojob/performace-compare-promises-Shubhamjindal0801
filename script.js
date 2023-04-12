@@ -13,3 +13,20 @@ const apiUrls = [
 ];
 
 // You can write your code here
+const fetchMultipleApis = async (apiUrls) => {
+  const startTimeAll = performance.now();
+  const allResponses = await Promise.any(apiUrls.map(url => fetch(url)));
+  const endTimeAll = performance.now();
+
+  const startTimeAny = performance.now();
+  const anyResponse = await Promise.any(apiUrls.map(url => fetch(url)));
+  const endTimeAny = performance.now();
+
+  const allTime = endTimeAll - startTimeAll;
+  const anyTime = endTimeAny - startTimeAny;
+  document.getElementById("output-all").innerHTML = allTime;
+  document.getElementById("output-any").innerHTML = anyTime;
+	//alert(allTime);
+	//alert(anyTime);
+};
+fetchMultipleApis(apiUrls);
